@@ -1,6 +1,5 @@
-const { default : mongoose} = require('mongoose');
-const DB_URL =  'mongodb://localhost:27017/mongooDB';
+const { mongoose} = require('mongoose');
+const DB_URL =  'mongodb://127.0.0.1:27017/myapp';
 
 
-mongoose.set('strictQuery', true);    // Set strictQuery for error log.
 mongoose.connect(DB_URL);    // Connect to mongodb.

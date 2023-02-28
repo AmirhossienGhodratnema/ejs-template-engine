@@ -1,10 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const { Blog } = require('../mongoose/models/blogModels');
+const route = express.Router();
 
 
 
 
-router.get('/', (req, res, next) => {
+route.get('/', (req, res, next) => {
     try {
         const users = [
             {id : 1, name : 'Amirhossein', lastName : 'Ghodratnema', age : 24},
@@ -20,6 +21,30 @@ router.get('/', (req, res, next) => {
 
 
 
+// Create new model with Create method.
+route.post('/created', async (req, res, next) => {
+    try {
+        const { title , text } = req.body;
+        const newBlog = await Blog.create({title, text});
+        return res.json('Create blog is ok...');
+    } catch (error) {
+        next(error);        
+    };
+});
+
+
+// Create new model with new model and save.
+route.post('/create-new', async (req, res, next) => {
+    try {
+        const { title, text } = req.body;
+        const newBlog = new Blog({ title, text });
+        await newBlog.save();
+        return res.json('Create-new');     
+    } catch (error) {
+        next(error);
+    };
+});
+
 module.exports = {
-    router,
+    route,
 }
