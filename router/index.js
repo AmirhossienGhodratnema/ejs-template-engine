@@ -1,4 +1,5 @@
 const express = require('express');
+const { insertMany } = require('../controller/mainController');
 const { Blog } = require('../mongoose/models/blogModels');
 const route = express.Router();
 
@@ -38,12 +39,16 @@ route.post('/create-new', async (req, res, next) => {
     try {
         const { title, text } = req.body;
         const newBlog = new Blog({ title, text });
-        await newBlog.save();
+        await newBlog.save();e
         return res.json('Create-new');     
     } catch (error) {
         next(error);
     };
 });
+
+
+
+route.post('/insertMany', insertMany);
 
 module.exports = {
     route,
