@@ -18,9 +18,6 @@ const storage = multer.diskStorage({
     },
 
     filename: (req, file, cb) => {
-
-
-
         const date = Date.now();    // Get date milisecend.
         const splitName = file.originalname.split('.')[0];    // Get basename.
         const ext = path.extname(file.originalname);    // Get ext name for format file.
@@ -37,7 +34,7 @@ const storage = multer.diskStorage({
 });
 
 
-const _7MB = 7 * 1000 * 1000;
+const _7MB = 7 * 1000 * 1000;    // 7MB limit to upload file size.
 
 // Upload file setting.
 const uploadFile = multer({

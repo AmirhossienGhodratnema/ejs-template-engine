@@ -55,7 +55,12 @@ route.post('/insertMany', insertMany);
 route.post('/upload', uploadFile.single('image'), async (req, res, next) => {
     console.log('req.file', req.file);
     return res.json('Upload iamge');
-})
+});
+
+
+route.post('/threeUploads', uploadFile.array('image', 3), async (req, res, next) => {
+    return res.json(req.files);
+});
 
 module.exports = {
     route,
