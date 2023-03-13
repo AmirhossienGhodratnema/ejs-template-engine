@@ -58,17 +58,25 @@ route.post('/upload', uploadFile.single('image'), async (req, res, next) => {
 });
 
 
+// Three upload image limits.
 route.post('/threeUploads', uploadFile.array('image', 3), async (req, res, next) => {
     return res.json(req.files);
 });
 
 
+// Two filed names upload.
 route.post('/image-filed', uploadFile.fields([
     { name: 'image', maxCount: 1 },
     { name: 'profile', maxCount: 1 },
 ]), async (req, res, next) => {
     return res.json(req.files);
-})
+});
+
+
+// Any upload fielsds name.
+route.post('/upload-any', uploadFile.any(), async (req, res, next) => {
+    return res.json(req.files);
+});
 
 module.exports = {
     route,
