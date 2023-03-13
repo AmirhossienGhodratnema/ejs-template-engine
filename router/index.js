@@ -12,9 +12,9 @@ const { uploadFile } = require('../middleware/multer');
 route.get('/', (req, res, next) => {
     try {
         const users = [
-            {id : 1, name : 'Amirhossein', lastName : 'Ghodratnema', age : 24},
-            {id : 2, name : 'Milad', lastName : 'Nemayan', age : 25},
-            {id : 3, name : 'Abolfazl', lastName : 'Seriyani', age : 18},
+            { id: 1, name: 'Amirhossein', lastName: 'Ghodratnema', age: 24 },
+            { id: 2, name: 'Milad', lastName: 'Nemayan', age: 25 },
+            { id: 3, name: 'Abolfazl', lastName: 'Seriyani', age: 18 },
         ]
         return res.render('index', { users });
         // return res.status(200).json('Main route is ok...');  
@@ -28,11 +28,11 @@ route.get('/', (req, res, next) => {
 // Create new model with Create method.
 route.post('/created', async (req, res, next) => {
     try {
-        const { title , text } = req.body;
-        const newBlog = await Blog.create({title, text});
+        const { title, text } = req.body;
+        const newBlog = await Blog.create({ title, text });
         return res.json('Create blog is ok...');
     } catch (error) {
-        next(error);        
+        next(error);
     };
 });
 
@@ -42,8 +42,8 @@ route.post('/create-new', async (req, res, next) => {
     try {
         const { title, text } = req.body;
         const newBlog = new Blog({ title, text });
-        await newBlog.save();e
-        return res.json('Create-new');     
+        await newBlog.save(); e
+        return res.json('Create-new');
     } catch (error) {
         next(error);
     };
@@ -61,6 +61,14 @@ route.post('/upload', uploadFile.single('image'), async (req, res, next) => {
 route.post('/threeUploads', uploadFile.array('image', 3), async (req, res, next) => {
     return res.json(req.files);
 });
+
+
+route.post('/image-filed', uploadFile.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'profile', maxCount: 1 },
+]), async (req, res, next) => {
+    return res.json(req.files);
+})
 
 module.exports = {
     route,
