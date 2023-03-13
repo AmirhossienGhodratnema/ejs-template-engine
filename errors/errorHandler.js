@@ -11,6 +11,7 @@ const notFoundError = (req, res, next) => {
 
 
 const errorHandler = (err, req, res, next) => {
+    console.log(err.message)
     const statusCode = err.statusCode || 500;
     const message = err.message  || 'Interval server error.';
     return res.json({

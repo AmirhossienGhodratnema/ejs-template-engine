@@ -18,17 +18,34 @@ const storage = multer.diskStorage({
     },
 
     filename: (req, file, cb) => {
+
+
+
         const date = Date.now();    // Get date milisecend.
         const splitName = file.originalname.split('.')[0];    // Get basename.
         const ext = path.extname(file.originalname);    // Get ext name for format file.
-        const fileName = `${splitName}-${date}${ext}`;    // My personalization file name.
-        cb(null, fileName);
 
+        const extList = ['.png', '.jpeg', '.jpg', '.webp'];
+        if (extList.includes(ext)) {
+            const fileName = `${splitName}-${date}${ext}`;    // My personalization file name.
+            cb(null, fileName);
+
+        } else {
+            cb(new Error('Only type : .png - .jpeg - .jpg - .webp'))    // Error type
+        };
     }
 });
 
 
-const uploadFile = multer({ storage });    // Upload file setting.
+const _7MB = 7 * 1000 * 1000;
+
+// Upload file setting.
+const uploadFile = multer({
+    storage,
+    limits: {
+        fileSize: _7MB
+    },
+});
 
 
 module.exports = {
