@@ -2,8 +2,11 @@ const express = require('express');
 const { insertMany } = require('../controller/mainController');
 const { Blog } = require('../mongoose/models/blogModels');
 const route = express.Router();
+const multer = require('multer');
 
 
+// Setting Options.
+const { uploadFile } = require('../middleware/multer');
 
 
 route.get('/', (req, res, next) => {
@@ -46,9 +49,13 @@ route.post('/create-new', async (req, res, next) => {
     };
 });
 
-
-
 route.post('/insertMany', insertMany);
+
+// Upload image
+route.post('/upload', uploadFile.single('image'), async (req, res, next) => {
+    console.log('req.file', req.file);
+    return res.json('Upload iamge');
+})
 
 module.exports = {
     route,

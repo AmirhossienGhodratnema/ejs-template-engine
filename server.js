@@ -11,6 +11,7 @@ const { notFoundError, errorHandler} = require('./errors/errorHandler');    // A
 // Options setting.
 require('./mongoose/config/mogno.config');    // DB connect to server.
 app.use(express.static('public'));
+app.use('uploads',express.static('uploads/'))
 app.use(express.json());    // Body-parser json setting.
 app.use(express.urlencoded({extended : true}));    // Body-parser urlencoded setting.
 
