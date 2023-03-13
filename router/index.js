@@ -78,6 +78,13 @@ route.post('/upload-any', uploadFile.any(), async (req, res, next) => {
     return res.json(req.files);
 });
 
+
+
+// When we use the file submission form, but we don't want to upload a file, only a wind is received
+route.post('/upload-none', uploadFile.none(), async (req, res, next) => {
+    return res.json(req.body);
+})
+
 module.exports = {
     route,
 }
